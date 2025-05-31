@@ -1,50 +1,43 @@
 package com.actividad.uno.exenvios.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
+@Entity
+@Table(name = "packages") // Cambiado a 'packages' para evitar conflicto con la palabra reservada 'package'
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Entity
-@Table(name = "packages")
 public class Package {
 
     @Id
-    @Column(name = "trackingNumber", nullable = false, unique = true, length = 20)
     private String trackingNumber;
-
-    @Column(length = 50, nullable = false)
     private String senderName;
-
-    @Column(length = 50, nullable = false)
     private String receiverName;
-
-    @Column(length = 50, nullable = false)
     private String origin;
-
-    @Column(length = 50, nullable = false)
     private String destination;
-
     private double weight;
-
-    @Column(length = 50, nullable = false)
-    private String dimensions;
-
-    @Column(length = 50, nullable = false)
+    private String dimensions; // Formato "largo x ancho x alto"
     private String status;
-
-    @Column(length = 50, nullable = false)
     private String currentLocation;
+    private LocalDate estimatedDeliveryDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date estimatedDeliveryDate;
+    @OneToMany(mappedBy = "packageEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<TrackingEvent> history = new ArrayList<>();
 
-    @OneToMany(mappedBy = "pkg", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<TrackingEvent> history;
+    public void addTrackingEvent(TrackingEvent event) {
+        history.add(event);
+        event.setPackageEntity(this);
+    }
+
+    public void removeTrackingEvent(TrackingEvent event) {
+        history.remove(event);
+        event.setPackageEntity(null);
+    }
 }
