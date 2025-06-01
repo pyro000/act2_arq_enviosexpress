@@ -23,7 +23,7 @@ Asegurarse de tener instalados los siguientes componentes:
 ## Configuración de la Base de Datos
 El proyecto está configurado para usar una base de datos PostgreSQL.
 
-- Crea la base de datos bf-api-act2:
+Crea la base de datos bf-api-act2:
 
 `CREATE DATABASE "bf-api-act2";`
 
@@ -36,8 +36,9 @@ Crea un usuario y asígnale permisos.
 ## Configura las credenciales del server
 Abre el archivo `src/main/resources/application.properties` y verifica o ajusta las propiedades de conexión a tu base de datos, el resto dejar intacto preferencialmente:
 
-`spring.datasource.username=pyro
-spring.datasource.password=qwerty123`
+`spring.datasource.username=pyro`
+
+`spring.datasource.password=qwerty123`
 
 # Ejecución
 
