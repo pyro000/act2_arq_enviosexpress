@@ -35,7 +35,6 @@ public class TrackingPortImpl implements TrackingPort {
     private PackageRepository packageRepository;
 
     @Override
-    // ¡Cambia 'throws TrackingFault' por 'throws TrackingErrorFaultMessage'!
     public GetTrackingStatusResponse getTrackingStatus(GetTrackingStatusRequest parameters) throws TrackingErrorFaultMessage {
         String trackingNumber = parameters.getTrackingNumber();
 

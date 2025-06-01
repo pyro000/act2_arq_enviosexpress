@@ -10,14 +10,20 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "packages") // Cambiado a 'packages' para evitar conflicto con la palabra reservada 'package'
+@Table(name = "packages")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Package {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false) // trackingNumber ahora es una columna normal, pero única y no nula
     private String trackingNumber;
+    // --- FIN CAMBIOS ---
+
     private String senderName;
     private String receiverName;
     private String origin;

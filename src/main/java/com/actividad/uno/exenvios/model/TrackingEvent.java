@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "tracking_event")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +22,13 @@ public class TrackingEvent {
     private String location;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "package_tracking_number")
+    @JoinColumn(name = "package_id")
     private Package packageEntity;
+
+
+    public TrackingEvent(LocalDateTime date, String description, String location) {
+        this.date = date;
+        this.description = description;
+        this.location = location;
+    }
 }
