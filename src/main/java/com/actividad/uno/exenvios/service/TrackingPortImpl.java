@@ -13,7 +13,7 @@ import com.envios_express.tracking.GetTrackingStatusResponse;
 import com.envios_express.tracking.TrackingPort;
 import com.envios_express.tracking.TrackingError;
 import com.envios_express.tracking.TrackingErrorFault;
-import com.envios_express.tracking.TrackingErrorFaultMessage; // <<-- ¡Importa esta clase!
+import com.envios_express.tracking.TrackingErrorFaultMessage;
 
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
@@ -43,9 +43,8 @@ public class TrackingPortImpl implements TrackingPort {
             error.setErrorCode(400);
             error.setErrorMessage("Tracking number cannot be empty.");
             error.setInvalidField("trackingNumber");
-            TrackingErrorFault faultInfo = new TrackingErrorFault(); // Este es el objeto que contiene el error
+            TrackingErrorFault faultInfo = new TrackingErrorFault();
             faultInfo.setError(error);
-            // ¡Lanza la excepción correcta!
             throw new TrackingErrorFaultMessage("Invalid Request: Tracking number is empty", faultInfo);
         }
 
@@ -56,9 +55,8 @@ public class TrackingPortImpl implements TrackingPort {
             error.setErrorCode(404);
             error.setErrorMessage("Package with tracking number " + trackingNumber + " not found.");
             error.setInvalidField("trackingNumber");
-            TrackingErrorFault faultInfo = new TrackingErrorFault(); // Este es el objeto que contiene el error
+            TrackingErrorFault faultInfo = new TrackingErrorFault();
             faultInfo.setError(error);
-            // ¡Lanza la excepción correcta!
             throw new TrackingErrorFaultMessage("Package not found", faultInfo);
         }
 
@@ -74,8 +72,6 @@ public class TrackingPortImpl implements TrackingPort {
                 response.setEstimatedDeliveryDate(xmlGregorianCalendar);
             } catch (Exception e) {
                 System.err.println("Error converting date: " + e.getMessage());
-                // En un entorno de producción, aquí podrías loguear el error de forma más robusta
-                // y decidir si esto es un error fatal o si simplemente la fecha no se incluye.
             }
         }
 
@@ -91,7 +87,6 @@ public class TrackingPortImpl implements TrackingPort {
                         soapEvent.setDate(xmlGregorianCalendar);
                     } catch (Exception e) {
                         System.err.println("Error converting event date: " + e.getMessage());
-                        // Similar al caso anterior, manejar el error o ignorar el evento específico.
                     }
                     soapEvent.setDescription(event.getDescription());
                     soapEvent.setLocation(event.getLocation());

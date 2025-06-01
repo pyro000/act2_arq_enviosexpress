@@ -20,7 +20,7 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false) // trackingNumber ahora es una columna normal, pero única y no nula
+    @Column(unique = true, nullable = false)
     private String trackingNumber;
     // --- FIN CAMBIOS ---
 
